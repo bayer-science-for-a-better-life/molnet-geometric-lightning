@@ -58,7 +58,7 @@ e_map = {
 }
 
 
-class MoleculeNetHBonds(InMemoryDataset):
+class MoleculeNet(InMemoryDataset):
     r"""The `MoleculeNet <http://moleculenet.ai/datasets-1>`_ benchmark
     collection  from the `"MoleculeNet: A Benchmark for Molecular Machine
     Learning" <https://arxiv.org/abs/1703.00564>`_ paper, containing datasets
@@ -115,7 +115,7 @@ class MoleculeNetHBonds(InMemoryDataset):
                  pre_filter=None):
         self.name = name.lower()
         assert self.name in self.names.keys()
-        super(MoleculeNetHBonds, self).__init__(root, transform, pre_transform, pre_filter)
+        super(MoleculeNet, self).__init__(root, transform, pre_transform, pre_filter)
         self.data, self.slices = torch.load(self.processed_paths[0])
 
     @property
