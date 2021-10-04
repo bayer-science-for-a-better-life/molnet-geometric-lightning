@@ -66,7 +66,8 @@ def train(args):
         trainer.test()
         del model
         del trainer
-        del early_stopping
+        if args.early_stopping is not None:
+            del early_stopping
 
 
 if __name__ == '__main__':
