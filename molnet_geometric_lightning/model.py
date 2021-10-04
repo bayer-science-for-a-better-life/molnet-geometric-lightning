@@ -104,14 +104,14 @@ class GCNConv(MessagePassing):
 
         row, col = edge_index
 
-        #edge_weight = torch.ones((edge_index.size(1), ), device=edge_index.device)
+        # edge_weight = torch.ones((edge_index.size(1), ), device=edge_index.device)
         deg = degree(row, x.size(0), dtype=x.dtype) + 1
         deg_inv_sqrt = deg.pow(-0.5)
         deg_inv_sqrt[deg_inv_sqrt == float('inf')] = 0
 
         norm = deg_inv_sqrt[row] * deg_inv_sqrt[col]
 
-        return self.propagate(edge_index, x=x, edge_attr = edge_embedding, norm=norm) + F.relu(x + self.root_emb.weight) * 1./deg.view(-1,1)
+        return self.propagate(edge_index, x=x, edge_attr=edge_embedding, norm=norm) + F.relu(x + self.root_emb.weight) * 1./deg.view(-1, 1)
 
     def message(self, x_j, edge_attr, norm):
         return norm.view(-1, 1) * F.relu(x_j + edge_attr)
@@ -208,7 +208,9 @@ class Net(LightningModule):
         self.graph_pred_linear = Linear(self.embedding_dim, self.num_tasks)
 
     def forward(self, batched_data):
-        x, edge_index, edge_attr, batch = batched_data.x, batched_data.edge_index, batched_data.edge_attr, batched_data.batch
+        x, edge_index, edge_attr, batch = (
+            batched_data.x, batched_data.edge_index, batched_data.edge_attr, batched_data.batch
+        )
         if self.virtual_node:
             virtualnode_embedding = self.virtualnode_embedding(
                 torch.zeros(batch[-1].item() + 1).type_as(edge_index))
