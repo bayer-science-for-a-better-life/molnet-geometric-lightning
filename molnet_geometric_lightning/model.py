@@ -16,6 +16,7 @@ from .mol_encoder import AtomEncoder, BondEncoder
 cls_criterion = BCEWithLogitsLoss()
 reg_criterion = MSELoss()
 
+
 class MolData(LightningDataModule):
     def __init__(
             self,
@@ -78,7 +79,7 @@ class GINConv(MessagePassing):
 
     def forward(self, x, edge_index, edge_attr):
         edge_embedding = self.bond_encoder(edge_attr)
-        out = self.mlp((1 + self.eps) *x + self.propagate(edge_index, x=x, edge_attr=edge_embedding))
+        out = self.mlp((1 + self.eps) * x + self.propagate(edge_index, x=x, edge_attr=edge_embedding))
 
         return out
 
@@ -95,7 +96,7 @@ class GCNConv(MessagePassing):
 
         self.linear = Linear(emb_dim, emb_dim)
         self.root_emb = Embedding(1, emb_dim)
-        self.bond_encoder = BondEncoder(emb_dim = emb_dim)
+        self.bond_encoder = BondEncoder(emb_dim=emb_dim)
 
     def forward(self, x, edge_index, edge_attr):
         x = self.linear(x)
@@ -104,7 +105,7 @@ class GCNConv(MessagePassing):
         row, col = edge_index
 
         #edge_weight = torch.ones((edge_index.size(1), ), device=edge_index.device)
-        deg = degree(row, x.size(0), dtype = x.dtype) + 1
+        deg = degree(row, x.size(0), dtype=x.dtype) + 1
         deg_inv_sqrt = deg.pow(-0.5)
         deg_inv_sqrt[deg_inv_sqrt == float('inf')] = 0
 
@@ -184,7 +185,7 @@ class Net(LightningModule):
             for layer in range(self.n_conv_layers - 1):
                 self.mlp_virtualnode_list.append(
                     torch.nn.Sequential(
-                        torch.nn.Linear( self.embedding_dim, 2 * self.embedding_dim),
+                        torch.nn.Linear(self.embedding_dim, 2 * self.embedding_dim),
                         BatchNorm1d(2 * self.embedding_dim),
                         ReLU(),
                         Linear(2 * self.embedding_dim, self.embedding_dim),

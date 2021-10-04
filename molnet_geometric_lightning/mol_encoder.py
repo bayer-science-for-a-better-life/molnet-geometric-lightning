@@ -3,6 +3,7 @@ import torch
 from torch_geometric.datasets.molecule_net import x_map as x_map_default
 from torch_geometric.datasets.molecule_net import e_map as e_map_default
 
+
 def get_atom_feature_dims():
     allowable_features = x_map_default
     return list(map(len, [
@@ -16,6 +17,7 @@ def get_atom_feature_dims():
         allowable_features['is_aromatic'],
         allowable_features['is_in_ring']
         ]))
+
 
 def get_bond_feature_dims():
     allowable_features = e_map_default

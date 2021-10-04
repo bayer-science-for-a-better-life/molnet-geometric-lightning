@@ -1,7 +1,6 @@
 import os
 import os.path as osp
 import re
-import warnings
 
 import torch
 from torch_geometric.data import (InMemoryDataset, Data, download_url,
@@ -116,8 +115,7 @@ class MoleculeNetHBonds(InMemoryDataset):
                  pre_filter=None):
         self.name = name.lower()
         assert self.name in self.names.keys()
-        super(MoleculeNetHBonds, self).__init__(root, transform, pre_transform,
-                                          pre_filter)
+        super(MoleculeNetHBonds, self).__init__(root, transform, pre_transform, pre_filter)
         self.data, self.slices = torch.load(self.processed_paths[0])
 
     @property
