@@ -7,11 +7,11 @@ from torch.optim import Adam
 import torch.nn.functional as F
 from torch.nn import Linear, Sequential, Parameter, BatchNorm1d, ReLU, ModuleList, BCEWithLogitsLoss, MSELoss, Embedding
 from torch_geometric.data import DataLoader
-from torch_geometric.datasets import MoleculeNet
 from torch_geometric.utils import degree
 from torch_geometric.nn.functional import bro, gini
 
 from .mol_encoder import AtomEncoder, BondEncoder
+from .molecule_net import MoleculeNet
 
 cls_criterion = BCEWithLogitsLoss()
 reg_criterion = MSELoss()
