@@ -197,9 +197,6 @@ class MoleculeNetHBonds(InMemoryDataset):
                 edge_indices += [[i, j], [j, i]]
                 edge_attrs += [e, e]
 
-            except ValueError as e:
-                warnings.warn(f'Couldn\'t embed {smiles}, skipping H-bonds.')
-
             edge_index = torch.tensor(edge_indices)
             edge_index = edge_index.t().to(torch.long).view(2, -1)
             edge_attr = torch.tensor(edge_attrs, dtype=torch.long).view(-1, 3)

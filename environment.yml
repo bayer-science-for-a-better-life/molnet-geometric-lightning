@@ -7,7 +7,7 @@ channels:
   - nvidia
   - rdkit
 dependencies:
-  - cudatoolkit=10.2
+  # - cudatoolkit=10.2
   - python=3.8
   - pip=21.1.3
   - pytorch=1.8.1

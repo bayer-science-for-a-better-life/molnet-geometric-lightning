@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+import sys
 
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
@@ -7,7 +8,7 @@ from ogb.graphproppred import Evaluator
 from molnet_geometric_lightning.model import Net, MolData
 
 
-if __name__ == '__main__':
+def parse_args(args):
     parser = ArgumentParser()
     parser.add_argument(
         '--batch_size', type=int, default=32,
@@ -28,8 +29,10 @@ if __name__ == '__main__':
     parser = Net.add_model_specific_args(parser)
     parser = Trainer.add_argparse_args(parser)
 
-    args = parser.parse_args()
+    return parser.parse_args(args)
 
+
+def train(args):
     mol_data = MolData(
         root=args.dataset_root,
         name=args.dataset_name,
@@ -43,7 +46,7 @@ if __name__ == '__main__':
             early_stopping = EarlyStopping(
                 monitor=f'{evaluator.eval_metric}',
                 mode='min' if 'rmse' in evaluator.eval_metric else 'max',
-                patience=50,
+                patience=args.early_stopping,
             )
             trainer = Trainer.from_argparse_args(args, callbacks=[early_stopping])
         else:
@@ -64,3 +67,8 @@ if __name__ == '__main__':
         del model
         del trainer
         del early_stopping
+
+
+if __name__ == '__main__':
+    args = parse_args(sys.argv[1:])
+    train(args)
