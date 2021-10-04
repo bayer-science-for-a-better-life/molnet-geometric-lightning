@@ -168,6 +168,8 @@ class Net(LightningModule):
         self.virtual_node = self.hparams.virtual_node
         self.JK = self.hparams.JK
         self.residual = self.hparams.residual
+        self.BRO = self.hparams.BRO
+        self.gini = self.hparams.gini
 
         self.task_type = task_type
         self.num_tasks = num_tasks
