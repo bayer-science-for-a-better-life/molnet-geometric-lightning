@@ -111,7 +111,9 @@ class GCNConv(MessagePassing):
 
         norm = deg_inv_sqrt[row] * deg_inv_sqrt[col]
 
-        return self.propagate(edge_index, x=x, edge_attr=edge_embedding, norm=norm) + F.relu(x + self.root_emb.weight) * 1./deg.view(-1, 1)
+        return self.propagate(
+            edge_index, x=x, edge_attr=edge_embedding, norm=norm
+        ) + F.relu(x + self.root_emb.weight) * 1./deg.view(-1, 1)
 
     def message(self, x_j, edge_attr, norm):
         return norm.view(-1, 1) * F.relu(x_j + edge_attr)
@@ -207,7 +209,7 @@ class Net(LightningModule):
 
         self.graph_pred_linear = Linear(self.embedding_dim, self.num_tasks)
 
-    def forward(self, batched_data):
+    def forward(self, batched_data):  # noqa
         x, edge_index, edge_attr, batch = (
             batched_data.x, batched_data.edge_index, batched_data.edge_attr, batched_data.batch
         )
