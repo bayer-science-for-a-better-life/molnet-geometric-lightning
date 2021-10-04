@@ -1,0 +1,21 @@
+name: hbond
+
+channels:
+  - rusty1s
+  - pytorch
+  - conda-forge
+  - nvidia
+  - rdkit
+dependencies:
+  # - cudatoolkit=10.2
+  - python=3.8
+  - pip=21.1.3
+  - pytorch=1.8.1
+  - pytorch-geometric=1.7.2
+  - pytorch-lightning=1.3.7
+  - pandas=1.2.5
+  - rdkit=2020.09.1.0
+  - scikit-learn=0.24.2
+  - tqdm=4.61.2
+  - pip:
+      - ogb==1.3.1
