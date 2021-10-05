@@ -17,6 +17,7 @@ Furthermore, the PyTorch Lightning framework makes for easier-to-maintain code, 
 After cloning this repo, you should be able to install with:
 
 ```conda env create```
+```conda activate mgl```
 
 Note: depending on your hardware, you may need to install the CUDA toolkit as well.
 For instance, you might have to add a line `- cudatoolkit=10.2` to `environment.yml`.
