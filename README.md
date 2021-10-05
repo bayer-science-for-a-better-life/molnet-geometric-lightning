@@ -42,3 +42,8 @@ From the above example, something like:
 ```shell script
 tensorboard --logdir=/full/path/to/example_model/
 ```
+
+## Benchmarks
+
+For instructions on recreating the paper benchmarks, see the `notebooks` directory.
+You can install jupyter with `pip install jupyter`.
