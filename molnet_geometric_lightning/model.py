@@ -146,9 +146,11 @@ class Net(LightningModule):
         )
         parser.add_argument(
             '--JK', choices=['last', 'sum'], default='last',
+            help='Either do graph-level aggregation on the final node representation, or the sum of all of them.'
         )
         parser.add_argument(
             '--residual', action='store_true', default=False,
+            help='Use residual connections between layers.'
         )
         parser.add_argument(
             '--gini', type=float, default=0.0,
