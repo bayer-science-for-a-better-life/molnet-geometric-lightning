@@ -54,6 +54,7 @@ This repository is intended to be used as a template for other experiments.
 Don't fork it!
 Instead use the "Use this template" button at the top.
 This "forks" the code without the full commit history.
+For an example, see [this PR in a derived repo](https://github.com/bayer-science-for-a-better-life/eh-benchmark/pull/1/files).
 
 In addition to changing the dataset and model code, there are some other things you should update to get the most out of this template:
 
